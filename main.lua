@@ -1,7 +1,7 @@
 require("init")
 
 function love.load()
-    
+    gs.switch(require("level"))
 end
 
 function love.update(dt)
