@@ -1,8 +1,5 @@
 conf=require 'config'
 
-gs=require "lib.hump.gamestate"
-gs.registerEvents()
-
 shove=require 'lib.shove'
 baton=require 'lib.baton'
 color=require 'lib.hex2color'
