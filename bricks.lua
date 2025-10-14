@@ -9,7 +9,7 @@ function bricks:update()
 end
 
 function bricks:draw()
-
+    
 end
 
 function bricks:new(x,y,t)
