@@ -18,7 +18,9 @@ function bricks:draw()
 end
 
 function bricks:new(x,y,t)
-    table.insert(self.b,{x=x,y=y,t=t})
+    table.insert(self.b,{x=x,y=y,t=t,kind="brick"})
+    local b=self.b[#self.b]
+    world:add(b,b.x,b.y,self.w,self.h)
 end
 
 return bricks

@@ -6,6 +6,7 @@ function lvl:init()
 end
 
 function lvl:enter()
+    world=bump.newWorld(16)
     bricks:init()
 
     for y=0,conf.gH/bricks.h-9 do
