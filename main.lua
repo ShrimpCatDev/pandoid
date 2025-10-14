@@ -1,5 +1,7 @@
 require("init")
 
+bump=require("lib.bump")
+
 function love.load()
     state={
         lvl=require("level")
