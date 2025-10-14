@@ -8,7 +8,11 @@ end
 function lvl:enter()
     bricks:init()
 
-    bricks:new(0,0,0)
+    for y=0,conf.gH/bricks.h-9 do
+        for x=0,conf.gW/bricks.w do
+            bricks:new(x*bricks.w,y*bricks.h,0)
+        end
+    end
 end
 
 function lvl:update(dt)

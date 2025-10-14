@@ -1,5 +1,7 @@
 local bricks={}
 bricks.img=lg.newImage("assets/brick.png")
+bricks.w=16
+bricks.h=8
 
 function bricks:init()
     self.b={}
