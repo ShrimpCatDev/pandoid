@@ -1,4 +1,5 @@
 local bricks={}
+bricks.img=lg.newImage("assets/brick.png")
 
 function bricks:init()
     self.b={}
@@ -9,7 +10,9 @@ function bricks:update()
 end
 
 function bricks:draw()
-    
+    for k,b in ipairs(self.b) do
+        lg.draw(self.img,b.x,b.y)
+    end
 end
 
 function bricks:new(x,y,t)

@@ -7,6 +7,8 @@ end
 
 function lvl:enter()
     bricks:init()
+
+    bricks:new(0,0,0)
 end
 
 function lvl:update(dt)
