@@ -36,7 +36,7 @@ function lvl:draw()
             lg.draw(self.bg)
         lg.setShader()
         --love.graphics.rectangle("fill",0,0,8,8)
-        bricks:draw()
+        --bricks:draw()
     shove.endDraw()
 end
 

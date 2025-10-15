@@ -16,7 +16,7 @@ vec4 effect(vec4 color, Image texture,vec2 tCoords,vec2 sCoords){
     py=(t.y-1)*32;
     float pix4= cos(sqrt(px*px+py*py)-time)+0.5;
 
-    float pixel=pix1+pix2+pix3+pix4-1;
+    float pixel=pix1+pix2+pix3+pix4-0.2;
     if (pixel>=1.5){
         return vec4(0.369,0.8,0.969,1);
     }
