@@ -13,10 +13,27 @@ function paddle:init()
 
     self.w=self.img:getWidth()
     self.h=self.img:getHeight()
+
+    self.kind="player"
+
+    self.vx=0
+    self.vy=0
+
+    self.spd=120
+
+    world:add(self,self.x,self.y,self.w,self.h)
 end
 
 function paddle:update(dt)
-
+    self.vx=0
+    if input:down("left") then
+        self.vx=-self.spd
+    end
+    if input:down("right") then
+        self.vx=self.spd
+    end
+    local ax,ay,col,len=world:move(self,self.x+self.vx*dt,self.y+self.vy*dt,self.filter)
+    self.x,self.y=ax,ay
 end
 
 function paddle:draw()

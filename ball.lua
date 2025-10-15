@@ -22,7 +22,7 @@ function ball:init(x,y)
     self.dx=1
     self.dy=1
 
-    self.spd=100
+    self.spd=80
 
     world:add(self,self.x,self.y,self.w,self.h)
 
@@ -42,7 +42,7 @@ function ball:update(dt)
 
         for i=1,len do
             local c=col[i]
-            if c.other.kind=="brick" then
+            if c.other.kind=="brick" or c.other.kind=="player" then
                 if c.normal.x~=0 then self.dx=c.normal.x end
                 if c.normal.y~=0 then self.dy=c.normal.y end
                 col[i].other.dead=true
