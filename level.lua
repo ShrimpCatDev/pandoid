@@ -1,30 +1,36 @@
 local lvl={}
-bricks=require("bricks")
+lvl.bricks=require("bricks")
+lvl.ball=require("ball")
 
 function lvl:init()
     
 end
 
 function lvl:enter()
+    
     self.shader=lg.newShader("plasma.glsl")
     self.shader:send("time",love.timer.getTime())
 
     self.bg=lg.newCanvas(conf.gW,conf.gH)
 
-
     world=bump.newWorld(16)
-    bricks:init()
 
-    for y=0,conf.gH/bricks.h-9 do
-        for x=0,conf.gW/bricks.w do
-            bricks:new(x*bricks.w,y*bricks.h,0)
+    self.ball:init(0,0)
+
+    self.bricks:init()
+
+    for y=1,conf.gH/self.bricks.h-9 do
+        for x=1,conf.gW/self.bricks.w-2 do
+            self.bricks:new(x*self.bricks.w,y*self.bricks.h,0)
         end
     end
 end
 
 function lvl:update(dt)
-    bricks:update(dt)
+    self.ball:update(dt)
+    self.bricks:update(dt)
     self.shader:send("time",love.timer.getTime())
+    timer.update(dt)
 end
 
 function lvl:draw()
@@ -36,7 +42,8 @@ function lvl:draw()
             lg.draw(self.bg)
         lg.setShader()
         --love.graphics.rectangle("fill",0,0,8,8)
-        --bricks:draw()
+        self.bricks:draw()
+        self.ball:draw()
     shove.endDraw()
 end
 

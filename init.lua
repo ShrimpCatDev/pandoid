@@ -11,3 +11,5 @@ lg=love.graphics
 
 shove.setResolution(conf.gW,conf.gH,{fitMethod=conf.fit,scalingFilter=conf.textureFilter})
 shove.setWindowMode(conf.wW,conf.wH,{resizable=true,vsync=conf.vsync})
+
+timer=require("lib.hump.timer")
