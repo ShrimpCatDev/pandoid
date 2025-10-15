@@ -9,8 +9,10 @@ end
 
 function lvl:enter()
     
-    self.shader=lg.newShader("plasma.glsl")
-    self.shader:send("time",love.timer.getTime())
+    self.plasmaShader=lg.newShader("plasma.glsl")
+    self.plasmaShader:send("time",love.timer.getTime())
+
+    --self.waveShader=lg.newShader("wave.glsl")
 
     self.bg=lg.newCanvas(conf.gW,conf.gH)
 
@@ -37,14 +39,13 @@ function lvl:update(dt)
                 self.bricks:new(x*self.bricks.w,y*self.bricks.h,0)
             end
         end
-        self.ball.x=80-4
-        self.ball.y=68
+        self.ball:place(80-4,64+4)
     end
 
     self.paddle:update(dt)
     self.ball:update(dt)
     self.bricks:update(dt)
-    self.shader:send("time",love.timer.getTime())
+    self.plasmaShader:send("time",love.timer.getTime())
     timer.update(dt)
 
     
@@ -55,7 +56,7 @@ function lvl:draw()
             lg.rectangle("fill",0,0,conf.gW,conf.gH)
     lg.setCanvas()
     shove.beginDraw()
-        lg.setShader(self.shader)
+        lg.setShader(self.plasmaShader)
             lg.draw(self.bg)
         lg.setShader()
         --love.graphics.rectangle("fill",0,0,8,8)

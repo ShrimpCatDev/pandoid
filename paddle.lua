@@ -23,6 +23,8 @@ function paddle:init()
 
     self.spd=120
 
+    self.bouncing=false
+
     world:add(self,self.x,self.y,self.w,self.h)
 end
 
@@ -45,10 +47,18 @@ function paddle:draw()
 end
 
 function paddle:bounce()
-    timer.tween(0.1,self,{oy=2},"out-quad")
-    timer.after(0.1,function()
-    timer.tween(0.45,self,{oy=0},"out-elastic")
-    end)
+    if not self.bouncing then
+        self.bouncing=true
+        timer.tween(0.1,self,{oy=2},"out-quad")
+        timer.after(0.1,function()
+            timer.tween(0.45,self,{oy=0},"out-elastic",function()
+                self.bouncing=false
+            end)
+            --[[timer.after(0.45,function()
+                self.bouncing=true
+            end)]]
+        end)
+    end
 end
 
 return paddle

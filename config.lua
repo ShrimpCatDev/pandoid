@@ -14,7 +14,8 @@ conf.vsync=true
 conf.input={
     controls={
         left={"key:left"},
-        right={"key:right"}
+        right={"key:right"},
+        action={"key:z","key:space"}
     },
     pairs={
 
