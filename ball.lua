@@ -58,14 +58,14 @@ function ball:update(dt)
         if self.y<=0 then
             self.dy=1
         end
-        if self.y>=conf.gH-self.h then
+        --[[if self.y>=conf.gH-self.h then
             self.dy=-1
-        end
+        end]]
 
         self.x,self.y=ax,ay
 
         self.x=clamp(self.x,0,conf.gW)
-        self.y=clamp(self.y,0,conf.gH)
+        self.y=clamp(self.y,0,math.huge)
     end
 end
 
