@@ -2,8 +2,12 @@ local ball={}
 ball.img=lg.newImage("assets/ball.png")
 
 function ball.filter(self,obj)
-    if obj.kind=="brick" then
-        return "bounce"
+    if obj.kind=="player" then
+        if self.y+ball.h/2<=obj.y then
+            return "slide"
+        else
+            return nil
+        end
     end
     return "slide"
 end
@@ -47,6 +51,9 @@ function ball:update(dt)
                 if c.normal.y~=0 then self.dy=c.normal.y end
                 col[i].other.dead=true
             end
+            if c.other.kind=="player" then
+                c.other:bounce()
+            end
         end
 
         if self.x<=0 then
@@ -64,7 +71,7 @@ function ball:update(dt)
 
         self.x,self.y=ax,ay
 
-        self.x=clamp(self.x,0,conf.gW)
+        self.x=clamp(self.x,0,conf.gW-self.w)
         self.y=clamp(self.y,0,math.huge)
     end
 end
