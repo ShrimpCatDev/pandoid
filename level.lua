@@ -1,6 +1,7 @@
 local lvl={}
 lvl.bricks=require("bricks")
 lvl.ball=require("ball")
+lvl.paddle=require("paddle")
 
 function lvl:init()
     
@@ -18,6 +19,8 @@ function lvl:enter()
     self.ball:init(0,0)
 
     self.bricks:init()
+
+    self.paddle:init()
 
     for y=1,conf.gH/self.bricks.h-9 do
         for x=1,conf.gW/self.bricks.w-2 do
@@ -38,6 +41,7 @@ function lvl:update(dt)
         self.ball.y=68
     end
 
+    self.paddle:update(dt)
     self.ball:update(dt)
     self.bricks:update(dt)
     self.shader:send("time",love.timer.getTime())
@@ -57,6 +61,7 @@ function lvl:draw()
         --love.graphics.rectangle("fill",0,0,8,8)
         self.bricks:draw()
         self.ball:draw()
+        self.paddle:draw()
     shove.endDraw()
 end
 
