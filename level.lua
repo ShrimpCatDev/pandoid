@@ -27,10 +27,23 @@ function lvl:enter()
 end
 
 function lvl:update(dt)
+
+    if #self.bricks.b<1 then
+        for y=1,conf.gH/self.bricks.h-9 do
+            for x=1,conf.gW/self.bricks.w-2 do
+                self.bricks:new(x*self.bricks.w,y*self.bricks.h,0)
+            end
+        end
+        self.ball.x=80-4
+        self.ball.y=68
+    end
+
     self.ball:update(dt)
     self.bricks:update(dt)
     self.shader:send("time",love.timer.getTime())
     timer.update(dt)
+
+    
 end
 
 function lvl:draw()
