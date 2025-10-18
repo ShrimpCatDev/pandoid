@@ -2,13 +2,21 @@ local lvl={}
 lvl.bricks=require("bricks")
 lvl.ball=require("ball")
 lvl.paddle=require("paddle")
+lvl.levels={}
+
+local maxLevels=1
+
+for i=1,maxLevels do
+    table.insert(lvl.levels,require("levels/lvl"..i))
+end
+
+lvl.level=1
 
 function lvl:init()
     
 end
 
 function lvl:enter()
-    
     self.plasmaShader=lg.newShader("plasma.glsl")
     self.plasmaShader:send("time",love.timer.getTime())
 
@@ -24,9 +32,13 @@ function lvl:enter()
 
     self.paddle:init()
 
-    for y=1,conf.gH/self.bricks.h-9 do
-        for x=1,conf.gW/self.bricks.w-2 do
-            self.bricks:new(x*self.bricks.w,y*self.bricks.h,0)
+    local l=self.levels[self.level]
+
+    for y=1,#l do
+        for x=1,#l[1] do
+            if l[y][x]>0 then
+                self.bricks:new((x-1)*self.bricks.w,(y-1)*self.bricks.h,1)
+            end
         end
     end
 end

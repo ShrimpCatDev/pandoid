@@ -13,7 +13,7 @@ function ball.filter(self,obj)
 end
 
 function ball:init(x,y)
-    self.move=false
+    self.move=true
 
     self.x=x
     self.y=y
@@ -31,30 +31,15 @@ function ball:init(x,y)
     self.mode="place" --place,move
 
     world:add(self,self.x,self.y,self.w,self.h)
-
-    timer.after(2,function()
-        self.move=true
-    end)
 end
 
 function ball:place(x,y)
-    self.x=x
-    self.y=y
-    self.dx=1
-    self.dy=1
-    world:update(self,x,y)
-
-    self.move=false
-    timer.after(2,function()
-        self.move=true
-    end)
+    self.mode="place"
 end
 
 function ball:change(x,y)
     self.x=x
     self.y=y
-    self.dx=1
-    self.dy=-1
     world:update(self,x,y)
 end
 
@@ -105,8 +90,16 @@ function ball:update(dt)
         local p=state.lvl.paddle
         ball:change(p.x+(p.w/2)-4,p.y-10)
 
-        if input:pressed("action") then
+        if input:pressed("left") then
+            self.dx=-1
+        end
+        if input:pressed("right") then
+            self.dx=1
+        end
 
+        if input:pressed("action") then
+            self.dy=-1
+            self.mode="move"
         end
     end
 end
