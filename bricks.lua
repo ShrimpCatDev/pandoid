@@ -19,7 +19,7 @@ function bricks:update(dt)
         local bcd=b.cd
 
         if b.cd==0 and not b.dead then
-            timer.tween(0.1,b,{dy=-1},"out-cubic",function()
+            timer.tween(0.1,b,{dy=-2},"out-cubic",function()
                 timer.tween(0.1,b,{dy=0},"out-cubic")
             end)
         end
