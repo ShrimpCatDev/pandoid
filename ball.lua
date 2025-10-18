@@ -57,7 +57,10 @@ function ball:update(dt)
                 if c.other.kind=="brick" or c.other.kind=="player" then
                     if c.normal.x~=0 then self.dx=c.normal.x end
                     if c.normal.y~=0 then self.dy=c.normal.y end
-                    col[i].other.dead=true
+                    
+                    if c.other.kind=="brick" then
+                        col[i].other.hp = col[i].other.hp-1
+                    end
                 end
                 if c.other.kind=="player" then
                     c.other:bounce()

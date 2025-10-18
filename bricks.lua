@@ -3,6 +3,11 @@ bricks.img=lg.newImage("assets/brick.png")
 bricks.w=16
 bricks.h=8
 
+bricks.data={
+    {img=lg.newImage("assets/brick.png"),hp=1},
+    {img=lg.newImage("assets/brickBlue.png"),hp=2}
+}
+
 function bricks:init()
     self.b={}
     self.p={}
@@ -11,6 +16,9 @@ end
 function bricks:update(dt)
     local rmv={}
     for k,b in ipairs(self.b) do
+        if b.hp<1 then
+            b.dead=true
+        end
         if b.dead then
             table.insert(rmv,k)
             world:remove(b)
@@ -51,7 +59,7 @@ function bricks:draw()
 end
 
 function bricks:new(x,y,t)
-    table.insert(self.b,{x=x,y=-8,t=t,kind="brick",r=math.random(-2,2),dead=false})
+    table.insert(self.b,{x=x,y=-8,t=t,kind="brick",r=math.random(-2,2),dead=false,hp=self.data[t].hp})
     local b=self.b[#self.b]
     world:add(b,x,y,self.w,self.h)
     timer.tween(math.random(10,18)/10,b,{y=y},"out-elastic")

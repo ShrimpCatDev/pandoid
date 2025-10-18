@@ -12,6 +12,18 @@ end
 
 lvl.level=1
 
+function lvl:load()
+    local l=self.levels[self.level]
+
+    for y=1,#l do
+        for x=1,#l[1] do
+            if l[y][x]>0 then
+                self.bricks:new((x-1)*self.bricks.w,(y-1)*self.bricks.h,1)
+            end
+        end
+    end
+end
+
 function lvl:init()
     
 end
@@ -32,25 +44,13 @@ function lvl:enter()
 
     self.paddle:init()
 
-    local l=self.levels[self.level]
-
-    for y=1,#l do
-        for x=1,#l[1] do
-            if l[y][x]>0 then
-                self.bricks:new((x-1)*self.bricks.w,(y-1)*self.bricks.h,1)
-            end
-        end
-    end
+    self:load()
 end
 
 function lvl:update(dt)
 
     if #self.bricks.b<1 then
-        for y=1,conf.gH/self.bricks.h-9 do
-            for x=1,conf.gW/self.bricks.w-2 do
-                self.bricks:new(x*self.bricks.w,y*self.bricks.h,0)
-            end
-        end
+        self:load()
         self.ball:place(80-4,64+4)
     end
 
