@@ -18,7 +18,7 @@ function lvl:load()
     for y=1,#l do
         for x=1,#l[1] do
             if l[y][x]>0 then
-                self.bricks:new((x-1)*self.bricks.w,(y-1)*self.bricks.h,1)
+                self.bricks:new((x-1)*self.bricks.w,(y-1)*self.bricks.h,l[y][x])
             end
         end
     end
@@ -31,8 +31,6 @@ end
 function lvl:enter()
     self.plasmaShader=lg.newShader("plasma.glsl")
     self.plasmaShader:send("time",love.timer.getTime())
-
-    --self.waveShader=lg.newShader("wave.glsl")
 
     self.bg=lg.newCanvas(conf.gW,conf.gH)
 

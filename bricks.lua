@@ -16,7 +16,16 @@ end
 function bricks:update(dt)
     local rmv={}
     for k,b in ipairs(self.b) do
-        if b.hp<1 then
+        local bcd=b.cd
+
+        if b.cd==0 and not b.dead then
+            timer.tween(0.1,b,{dy=-1},"out-cubic",function()
+                timer.tween(0.1,b,{dy=0},"out-cubic")
+            end)
+        end
+
+        b.cd=b.cd+dt
+        if b.hp<=0 then
             b.dead=true
         end
         if b.dead then
@@ -51,15 +60,16 @@ end
 
 function bricks:draw()
     for k,b in ipairs(self.b) do
-        lg.draw(self.img,b.x+self.w/2,b.y+self.h/2,b.r+math.cos(love.timer.getTime()+k*0.2)*0.1,1,1,self.w/2,self.h/2)
+        lg.draw(self.data[b.t].img,b.x+self.w/2,b.y+self.h/2+b.dy,b.r+math.cos(love.timer.getTime()+k*0.2)*0.1,1,1,self.w/2,self.h/2)
     end
+
     for k,b in ipairs(self.p) do
-        lg.draw(self.img,b.x+self.w/2,b.y+self.h/2,b.r+math.cos(love.timer.getTime()+k*0.2)*0.1,b.s,b.s,self.w/2,self.h/2)
+        lg.draw(self.data[b.t].img,b.x+self.w/2,b.y+self.h/2,b.r+math.cos(love.timer.getTime()+k*0.2)*0.1,b.s,b.s,self.w/2,self.h/2)
     end
 end
 
 function bricks:new(x,y,t)
-    table.insert(self.b,{x=x,y=-8,t=t,kind="brick",r=math.random(-2,2),dead=false,hp=self.data[t].hp})
+    table.insert(self.b,{x=x,y=-8,t=t,kind="brick",r=math.random(-2,2),dead=false,hp=self.data[t].hp,cd=0,dy=0})
     local b=self.b[#self.b]
     world:add(b,x,y,self.w,self.h)
     timer.tween(math.random(10,18)/10,b,{y=y},"out-elastic")
