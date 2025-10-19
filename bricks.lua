@@ -87,7 +87,7 @@ function bricks:draw()
 end
 
 function bricks:new(x,y,t)
-    table.insert(self.b,{x=x,y=-8,t=t,kind="brick",r=math.random(-2,2),dead=false,hp=self.data[t].hp,cd=0,dy=0})
+    table.insert(self.b,{x=x,y=-8,t=t,kind="brick",r=math.random(-2,2),dead=false,hp=self.data[t].hp,cd=0.01,dy=0})
     local b=self.b[#self.b]
     world:add(b,x,y,self.w,self.h)
     timer.tween(math.random(10,18)/10,b,{y=y},"out-elastic")

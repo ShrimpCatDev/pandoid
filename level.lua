@@ -5,6 +5,8 @@ lvl.paddle=require("paddle")
 lvl.levels={}
 parts=require("lib.particles")
 
+shove.createLayer("game")
+
 local maxLevels=2
 
 for i=1,maxLevels do
@@ -73,6 +75,7 @@ function lvl:draw()
             lg.rectangle("fill",0,0,conf.gW,conf.gH)
     lg.setCanvas()
     shove.beginDraw()
+        shove.beginLayer("game")
         lg.setShader(self.plasmaShader)
             lg.draw(self.bg)
         lg.setShader()
@@ -82,6 +85,7 @@ function lvl:draw()
         self.paddle:draw()
 
         parts.draw()
+        shove.endLayer()
     shove.endDraw()
 end
 

@@ -25,6 +25,6 @@ vec4 effect(vec4 color, Image texture,vec2 tCoords,vec2 sCoords){
         
     }
     else{
-        return vec4(0.133,0.071,0.231,1);
+        return vec4(0.146,0.088,0.482,1);
     }
 }
