@@ -27,7 +27,13 @@ function lvl:load()
     end
 end
 
+function changeScore(score)
+    lvl.score=lvl.score+score
+end
+
 function lvl:enter()
+    self.score=0
+    self.stat={sy=0}
 
     self.timer=0
 
@@ -96,6 +102,12 @@ function lvl:draw()
         self.paddle:draw()
 
         parts.draw()
+
+        lg.setColor(0,0,0,0.5)
+        lg.rectangle("fill",0,0,conf.gW,6)
+        lg.setColor(1,1,1,1)
+        lg.print("score: "..self.score,1,1)
+
         shove.endLayer()
     shove.endDraw()
 end

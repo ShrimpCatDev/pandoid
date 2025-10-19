@@ -4,10 +4,10 @@ bricks.w=16
 bricks.h=8
 
 bricks.data={
-    {img=lg.newImage("assets/brick.png"),hp=1},
-    {img=lg.newImage("assets/brickBlue.png"),hp=2},
-    {img=lg.newImage("assets/brickPink.png"),hp=3},
-    {img=lg.newImage("assets/brickWhite.png"),hp=1}
+    {img=lg.newImage("assets/brick.png"),hp=1,score=10},
+    {img=lg.newImage("assets/brickBlue.png"),hp=2,score=20},
+    {img=lg.newImage("assets/brickPink.png"),hp=3,score=30},
+    {img=lg.newImage("assets/brickWhite.png"),hp=1,score=10}
 }
 
 function bricks:init()
@@ -36,6 +36,7 @@ function bricks:update(dt)
         local bcd=b.cd
 
         if b.cd==0 and not b.dead then
+            changeScore(self.data[b.t].score)
             timer.tween(0.1,b,{dy=-2},"out-cubic",function()
                 timer.tween(0.1,b,{dy=0},"out-cubic")
             end)
