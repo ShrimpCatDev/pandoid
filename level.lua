@@ -32,6 +32,11 @@ function lvl:init()
 end
 
 function lvl:enter()
+
+    self.timer=0
+
+    self.pause=false
+
     self.plasmaShader=lg.newShader("plasma.glsl")
     self.plasmaShader:send("time",love.timer.getTime())
 
@@ -51,23 +56,33 @@ function lvl:enter()
 end
 
 function lvl:update(dt)
-
-    if #self.bricks.b<1 then
-        self.level=self.level+1
-        if self.level>#self.levels then
-            self.level=1
+    if not self.paused then
+        self.timer=self.timer+dt
+        if #self.bricks.b<1 then
+            self.level=self.level+1
+            if self.level>#self.levels then
+                self.level=1
+            end
+            self:load()
+            self.ball:place(80-4,64+4)
         end
-        self:load()
-        self.ball:place(80-4,64+4)
+
+        self.paddle:update(dt)
+        self.ball:update(dt)
+        self.bricks:update(dt)
+        self.plasmaShader:send("time",self.timer)
+        timer.update(dt)
+
+        parts.update(dt)
     end
 
-    self.paddle:update(dt)
-    self.ball:update(dt)
-    self.bricks:update(dt)
-    self.plasmaShader:send("time",love.timer.getTime())
-    timer.update(dt)
-
-    parts.update(dt)
+    if input:pressed("pause") then
+        if self.paused==true then
+            self.paused=false
+        else
+            self.paused=true
+        end
+    end
 end
 
 function lvl:draw()
@@ -80,7 +95,7 @@ function lvl:draw()
             lg.draw(self.bg)
         lg.setShader()
         --love.graphics.rectangle("fill",0,0,8,8)
-        self.bricks:draw()
+        self.bricks:draw(self.timer)
         self.ball:draw()
         self.paddle:draw()
 

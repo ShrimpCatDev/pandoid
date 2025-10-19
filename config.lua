@@ -15,7 +15,8 @@ conf.input={
     controls={
         left={"key:left"},
         right={"key:right"},
-        action={"key:z","key:space"}
+        action={"key:z","key:space"},
+        pause={"key:escape"}
     },
     pairs={
 

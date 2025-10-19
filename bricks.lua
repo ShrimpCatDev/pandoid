@@ -76,13 +76,13 @@ function bricks:update(dt)
     end
 end
 
-function bricks:draw()
+function bricks:draw(timer)
     for k,b in ipairs(self.b) do
-        lg.draw(self.data[b.t].img,b.x+self.w/2,b.y+self.h/2+b.dy,b.r+math.cos(love.timer.getTime()+k*0.2)*0.1,1,1,self.w/2,self.h/2)
+        lg.draw(self.data[b.t].img,b.x+self.w/2,b.y+self.h/2+b.dy,b.r+math.cos(timer+k*0.2)*0.1,1,1,self.w/2,self.h/2)
     end
 
     for k,b in ipairs(self.p) do
-        lg.draw(self.data[b.t].img,b.x+self.w/2,b.y+self.h/2,b.r+math.cos(love.timer.getTime()+k*0.2)*0.1,b.s,b.s,self.w/2,self.h/2)
+        lg.draw(self.data[b.t].img,b.x+self.w/2,b.y+self.h/2,b.r+math.cos(timer+k*0.2)*0.1,b.s,b.s,self.w/2,self.h/2)
     end
 end
 
