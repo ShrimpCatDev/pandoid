@@ -15,6 +15,17 @@ function bricks:init()
     self.p={}
 end
 
+function bricks:particle(x1,y1)
+    part.new(x1,y1,math.random(-8,8),math.random(-8,8),0,0,1,
+    function(x,y,lt)
+    
+    end,
+
+    function()
+    
+    end)
+end
+
 function bricks:update(dt)
     local rmv={}
     for k,b in ipairs(self.b) do
