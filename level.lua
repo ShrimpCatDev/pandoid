@@ -27,10 +27,6 @@ function lvl:load()
     end
 end
 
-function lvl:init()
-    
-end
-
 function lvl:enter()
 
     self.timer=0
