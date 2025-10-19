@@ -3,7 +3,7 @@ lvl.bricks=require("bricks")
 lvl.ball=require("ball")
 lvl.paddle=require("paddle")
 lvl.levels={}
-lvl.parts=require("lib.particles")
+parts=require("lib.particles")
 
 local maxLevels=2
 
@@ -45,7 +45,7 @@ function lvl:enter()
 
     self:load()
 
-    self.parts.clear()
+    parts.clear()
 end
 
 function lvl:update(dt)
@@ -65,7 +65,7 @@ function lvl:update(dt)
     self.plasmaShader:send("time",love.timer.getTime())
     timer.update(dt)
 
-    self.parts.update(dt)
+    parts.update(dt)
 end
 
 function lvl:draw()
@@ -81,7 +81,7 @@ function lvl:draw()
         self.ball:draw()
         self.paddle:draw()
 
-        self.parts.draw()
+        parts.draw()
     shove.endDraw()
 end
 

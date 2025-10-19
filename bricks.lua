@@ -16,14 +16,18 @@ function bricks:init()
 end
 
 function bricks:particle(x1,y1)
-    part.new(x1,y1,math.random(-8,8),math.random(-8,8),0,0,1,
-    function(x,y,lt)
-    
-    end,
+    for i=0,11 do
+        local spd=16
+        parts.new(x1+math.random(-self.w/2,self.w/2),y1,math.random(-spd,spd),math.random(-spd*2,spd/2),0,80,math.random(5,7)*0.1,
+        function(x,y,lt)
+            lg.setColor(1,1,1,lt)
+            lg.circle("fill",x,y,lt*8)
+        end,
 
-    function()
-    
-    end)
+        function()
+            
+        end)
+    end
 end
 
 function bricks:update(dt)
@@ -35,6 +39,7 @@ function bricks:update(dt)
             timer.tween(0.1,b,{dy=-2},"out-cubic",function()
                 timer.tween(0.1,b,{dy=0},"out-cubic")
             end)
+            bricks:particle(b.x+self.w/2,b.y+self.h/2)
         end
 
         b.cd=b.cd+dt
