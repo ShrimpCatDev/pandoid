@@ -5,7 +5,9 @@ bricks.h=8
 
 bricks.data={
     {img=lg.newImage("assets/brick.png"),hp=1},
-    {img=lg.newImage("assets/brickBlue.png"),hp=2}
+    {img=lg.newImage("assets/brickBlue.png"),hp=2},
+    {img=lg.newImage("assets/brickPink.png"),hp=3},
+    {img=lg.newImage("assets/brickWhite.png"),hp=1}
 }
 
 function bricks:init()

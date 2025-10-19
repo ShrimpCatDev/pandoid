@@ -4,7 +4,7 @@ lvl.ball=require("ball")
 lvl.paddle=require("paddle")
 lvl.levels={}
 
-local maxLevels=1
+local maxLevels=2
 
 for i=1,maxLevels do
     table.insert(lvl.levels,require("levels/lvl"..i))
@@ -48,6 +48,10 @@ end
 function lvl:update(dt)
 
     if #self.bricks.b<1 then
+        self.level=self.level+1
+        if self.level>#self.levels then
+            self.level=1
+        end
         self:load()
         self.ball:place(80-4,64+4)
     end
