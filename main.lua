@@ -3,6 +3,7 @@ require("init")
 bump=require("lib.bump")
 
 function love.load()
+    love.window.setTitle("Freakout")
     state={
         lvl=require("level")
     }
