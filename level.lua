@@ -29,11 +29,19 @@ end
 
 function changeScore(score)
     lvl.score=lvl.score+score
+    if lvl.stat.sm then
+        lvl.stat.sm=false
+        timer.tween(0.1,lvl.stat,{sy=-2},"out-cubic",function()
+            timer.tween(0.1,lvl.stat,{sy=0},"in-cubic",function()
+                lvl.stat.sm=true
+            end)
+        end)
+    end
 end
 
 function lvl:enter()
     self.score=0
-    self.stat={sy=0}
+    self.stat={sy=0,sm=true}
 
     self.timer=0
 
@@ -106,7 +114,7 @@ function lvl:draw()
         lg.setColor(0,0,0,0.5)
         lg.rectangle("fill",0,0,conf.gW,6)
         lg.setColor(1,1,1,1)
-        lg.print("score: "..self.score,1,1)
+        lg.print("score: "..self.score,1,1+self.stat.sy)
 
         shove.endLayer()
     shove.endDraw()
