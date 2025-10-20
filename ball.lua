@@ -13,6 +13,8 @@ function ball.filter(self,obj)
 end
 
 function ball:init(x,y)
+    ball.lives=5
+
     self.move=true
 
     self.x=x

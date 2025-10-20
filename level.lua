@@ -41,7 +41,9 @@ end
 
 function lvl:enter()
     self.score=0
-    self.stat={sy=0,sm=true}
+    self.stat={sy=0,sm=true,prog=-0.2}
+
+    timer.tween(1,self.stat,{prog=1.5},"in-linear")
 
     self.timer=0
 
@@ -49,6 +51,9 @@ function lvl:enter()
 
     self.plasmaShader=lg.newShader("plasma.glsl")
     self.plasmaShader:send("time",love.timer.getTime())
+
+    self.wave=lg.newShader("wave.glsl")
+    --self.wave:send("time",love.timer.getTime())
 
     self.bg=lg.newCanvas(conf.gW,conf.gH)
 
@@ -63,6 +68,8 @@ function lvl:enter()
     self:load()
 
     parts.clear()
+
+    self.trans=lg.newCanvas(conf.gW,conf.gH)
 end
 
 function lvl:update(dt)
@@ -81,6 +88,9 @@ function lvl:update(dt)
         self.ball:update(dt)
         self.bricks:update(dt)
         self.plasmaShader:send("time",self.timer)
+        self.wave:send("time",love.timer.getTime())
+
+        self.wave:send("prog",self.stat.prog)
         timer.update(dt)
 
         parts.update(dt)
@@ -99,11 +109,21 @@ function lvl:draw()
     lg.setCanvas(self.bg)
             lg.rectangle("fill",0,0,conf.gW,conf.gH)
     lg.setCanvas()
+
+    lg.setCanvas(self.trans)
+            lg.setColor(0,0,0,0)
+            lg.rectangle("fill",0,0,conf.gW,conf.gH)
+    lg.setCanvas()
+
+    lg.setColor(1,1,1,1)
+
     shove.beginDraw()
         shove.beginLayer("game")
         lg.setShader(self.plasmaShader)
             lg.draw(self.bg)
         lg.setShader()
+
+        
         --love.graphics.rectangle("fill",0,0,8,8)
         self.bricks:draw(self.timer)
         self.ball:draw()
@@ -115,6 +135,10 @@ function lvl:draw()
         lg.rectangle("fill",0,0,conf.gW,6)
         lg.setColor(1,1,1,1)
         lg.print("score: "..self.score,1,1+self.stat.sy)
+
+        lg.setShader(self.wave)
+            lg.draw(self.trans)
+        lg.setShader()
 
         shove.endLayer()
     shove.endDraw()

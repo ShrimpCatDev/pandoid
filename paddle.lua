@@ -6,7 +6,7 @@ function paddle.filter()
 end
 
 function paddle:init()
-    self.x=0
+    self.x=conf.gW/2-self.img:getWidth()/2
     self.y=conf.gH-10
 
     self.r=0
