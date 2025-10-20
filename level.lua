@@ -43,7 +43,15 @@ function changeScore(score)
     end
 end
 
+function shakeScreen()
+    lvl.shakeTimer=0.2
+end
+
 function lvl:enter()
+
+    self.shakeTime=0.1
+    self.shakeTimer=0
+    self.shake={x=0,y=0}
 
     love.audio.stop()
     self.bgm:play()
@@ -81,6 +89,18 @@ function lvl:enter()
 end
 
 function lvl:update(dt)
+
+    self.shakeTimer=self.shakeTimer-dt
+
+    if self.shakeTimer>0 then
+        self.shakeTime=self.shakeTime-dt
+        if self.shakeTime>0 then
+            self.shake.x=math.random(-1,1)*0.2
+            self.shake.y=math.random(-1,1)*0.2
+            self.shakeTime=0.1
+        end
+    end
+
     if not self.paused then
         self.timer=self.timer+dt
         if #self.bricks.b<1 then
@@ -127,9 +147,14 @@ function lvl:draw()
 
     shove.beginDraw()
         shove.beginLayer("game")
+        
         lg.setShader(self.plasmaShader)
             lg.draw(self.bg)
         lg.setShader()
+
+        if self.shakeTimer>0 then
+            lg.translate(self.shake.x,self.shake.y)
+        end
 
         
         --love.graphics.rectangle("fill",0,0,8,8)
@@ -138,6 +163,8 @@ function lvl:draw()
         self.paddle:draw()
 
         parts.draw()
+
+        lg.translate(0,0)
 
         lg.setColor(0,0,0,0.5)
         lg.rectangle("fill",0,0,conf.gW,6)

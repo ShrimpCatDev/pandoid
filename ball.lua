@@ -1,5 +1,6 @@
 local ball={}
 ball.img=lg.newImage("assets/ball.png")
+ball.bounceSound=love.audio.newSource("assets/edgeHit.ogg","static")
 
 function ball.filter(self,obj)
     if obj.kind=="player" then
@@ -63,6 +64,7 @@ function ball:update(dt)
                     if c.other.kind=="brick" then
                         col[i].other.hp = col[i].other.hp-1
                         col[i].other.cd=0
+                        shakeScreen()
                     end
                 end
                 if c.other.kind=="player" then
@@ -71,12 +73,15 @@ function ball:update(dt)
             end
 
             if self.x<=0 then
+                ball.bounceSound:play()
                 self.dx=1
             end
             if self.x>=conf.gW-self.w then
+                ball.bounceSound:play()
                 self.dx=-1
             end
             if self.y<=0 then
+                ball.bounceSound:play()
                 self.dy=1
             end
             --[[if self.y>=conf.gH-self.h then

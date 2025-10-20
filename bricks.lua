@@ -3,6 +3,8 @@ bricks.img=lg.newImage("assets/brick.png")
 bricks.w=16
 bricks.h=8
 
+bricks.hit1=love.audio.newSource("assets/brickHitLight.ogg","static")
+
 bricks.data={
     {img=lg.newImage("assets/brick.png"),hp=1,score=10},
     {img=lg.newImage("assets/brickBlue.png"),hp=2,score=20},
@@ -36,6 +38,8 @@ function bricks:update(dt)
         local bcd=b.cd
 
         if b.cd==0 and not b.dead then
+            local s=love.audio.newSource("assets/brickHitLight.ogg","static")
+            s:play()
             changeScore(self.data[b.t].score)
             timer.tween(0.1,b,{dy=-2},"out-cubic",function()
                 timer.tween(0.1,b,{dy=0},"out-cubic")
