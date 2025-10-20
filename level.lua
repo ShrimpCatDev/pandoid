@@ -5,6 +5,10 @@ lvl.paddle=require("paddle")
 lvl.levels={}
 parts=require("lib.particles")
 
+lvl.bgm=love.audio.newSource("assets/bgm.ogg","stream")
+lvl.bgm:setLooping(true)
+lvl.bgm:setVolume(150)
+
 shove.createLayer("game")
 
 local maxLevels=2
@@ -40,6 +44,10 @@ function changeScore(score)
 end
 
 function lvl:enter()
+
+    love.audio.stop()
+    self.bgm:play()
+
     self.score=0
     self.stat={sy=0,sm=true,prog=-0.2}
 
@@ -135,6 +143,9 @@ function lvl:draw()
         lg.rectangle("fill",0,0,conf.gW,6)
         lg.setColor(1,1,1,1)
         lg.print("score: "..self.score,1,1+self.stat.sy)
+
+        local str="balls: "..self.ball.lives
+        lg.print(str,conf.gW-1-font:getWidth(str),1)
 
         lg.setShader(self.wave)
             lg.draw(self.trans)

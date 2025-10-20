@@ -89,7 +89,8 @@ function ball:update(dt)
             self.y=clamp(self.y,0,math.huge)
 
             if self.y>conf.gH then
-                ball:place(80-4,64+4)
+                self.lives=self.lives-1
+                self:place(80-4,64+4)
             end
         end
     else

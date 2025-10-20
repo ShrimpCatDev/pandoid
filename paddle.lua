@@ -1,5 +1,6 @@
 local paddle={}
 paddle.img=lg.newImage("assets/paddle.png")
+paddle.sound=love.audio.newSource("assets/paddleBounce.ogg","static")
 
 function paddle.filter()
     return "cross"
@@ -47,6 +48,8 @@ function paddle:draw()
 end
 
 function paddle:bounce()
+    paddle.sound:stop()
+    paddle.sound:play()
     if not self.bouncing then
         self.bouncing=true
         timer.tween(0.1,self,{oy=2},"out-quad")
