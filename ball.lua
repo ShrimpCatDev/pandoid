@@ -117,10 +117,12 @@ function ball:update(dt)
             self.mode="move"
         end
     end
+    self.xx=lerpDt(self.xx,self.x,46,dt)
+    self.yy=lerpDt(self.yy,self.y,46,dt)
 end
 
 function ball:draw()
-    lg.draw(self.img,self.x,self.y)
+    lg.draw(self.img,self.xx,self.yy)
 end
 
 return ball
