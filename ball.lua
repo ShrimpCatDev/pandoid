@@ -14,7 +14,7 @@ function ball.filter(self,obj)
 end
 
 function ball:init(x,y)
-    ball.lives=5
+    ball.lives=0
 
     self.move=true
 
@@ -98,6 +98,9 @@ function ball:update(dt)
 
             if self.y>conf.gH then
                 self.lives=self.lives-1
+                if self.lives<0 then
+                    gameover()
+                end
                 self:place(80-4,64+4)
             end
         end

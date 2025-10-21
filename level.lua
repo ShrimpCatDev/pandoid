@@ -53,11 +53,13 @@ function lvl:enter()
     self.shakeTimer=0
     self.shake={x=0,y=0}
 
+    self.gameover=false
+
     love.audio.stop()
     self.bgm:play()
 
     self.score=0
-    self.stat={sy=0,sm=true,prog=-0.2,bgVolume=0}
+    self.stat={sy=0,sm=true,prog=-0.2,bgVolume=0,gx=conf.gW+8}
 
     timer.tween(1,self.stat,{prog=1.5},"in-linear")
 
@@ -90,6 +92,23 @@ function lvl:enter()
     self.trans=lg.newCanvas(conf.gW,conf.gH)
 end
 
+function gameover()
+    lvl.gameover=true
+    timer.tween(1,lvl.stat,{prog=-0.2},"in-linear",function() 
+        timer.tween(1,lvl.stat,{gx=0},"out-quad",function() 
+            timer.after(5,function()
+                timer.tween(1,lvl.stat,{gx=136},"out-quad",function() 
+                    gs.switch(state.title)
+                end)
+                
+            end)
+        --gs.switch(state.title)
+        end)
+    end)
+end
+
+
+
 function lvl:update(dt)
 
     self.bgm:setVolume(self.stat.bgVolume)
@@ -105,7 +124,11 @@ function lvl:update(dt)
         end
     end
 
-    if not self.paused then
+    timer.update(dt)
+    self.wave:send("time",love.timer.getTime())
+    self.wave:send("prog",self.stat.prog)
+
+    if not self.paused and not self.gameover then
         self.timer=self.timer+dt
         if #self.bricks.b<1 then
             self.level=self.level+1
@@ -120,11 +143,7 @@ function lvl:update(dt)
         self.ball:update(dt)
         self.bricks:update(dt)
         self.plasmaShader:send("time",self.timer)
-        self.wave:send("time",love.timer.getTime())
-
-        self.wave:send("prog",self.stat.prog)
-        timer.update(dt)
-
+        
         parts.update(dt)
     end
 
@@ -181,6 +200,12 @@ function lvl:draw()
         lg.setShader(self.wave)
             lg.draw(self.trans)
         lg.setShader()
+
+        local t="game over"
+        local y=conf.gH/2-font:getHeight()/2+self.stat.gx
+        lg.print(t,conf.gW/2-font:getWidth(t)/2,y-2)
+        local t="your score was "..self.score
+        lg.print(t,conf.gW/2-font:getWidth(t)/2,y+3)
 
         shove.endLayer()
     shove.endDraw()
