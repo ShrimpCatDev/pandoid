@@ -57,9 +57,11 @@ function lvl:enter()
     self.bgm:play()
 
     self.score=0
-    self.stat={sy=0,sm=true,prog=-0.2}
+    self.stat={sy=0,sm=true,prog=-0.2,bgVolume=0}
 
     timer.tween(1,self.stat,{prog=1.5},"in-linear")
+
+    timer.tween(1,self.stat,{bgVolume=1},"in-linear")
 
     self.timer=0
 
@@ -89,6 +91,8 @@ function lvl:enter()
 end
 
 function lvl:update(dt)
+
+    self.bgm:setVolume(self.stat.bgVolume)
 
     self.shakeTimer=self.shakeTimer-dt
 
@@ -171,7 +175,7 @@ function lvl:draw()
         lg.setColor(1,1,1,1)
         lg.print("score: "..self.score,1,1+self.stat.sy)
 
-        local str="balls: "..self.ball.lives
+        local str="balls: "..clamp(self.ball.lives,0,5000)
         lg.print(str,conf.gW-1-font:getWidth(str),1)
 
         lg.setShader(self.wave)

@@ -22,6 +22,9 @@ function ball:init(x,y)
     self.y=y
     self.w=8
     self.h=8
+
+    self.xx=self.x
+    self.yy=self.y
     
     self.vx=0
     self.vy=0
