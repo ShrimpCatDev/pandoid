@@ -39,6 +39,9 @@ function bricks:update(dt)
 
         if b.cd==0 and not b.dead then
             local s=love.audio.newSource("assets/brickHitLight.ogg","static")
+
+            local normalized = (2 * (b.x - 0) / (160 - 0)) - 1
+            s:setPosition(normalized,0,0)
             s:play()
             changeScore(self.data[b.t].score)
             timer.tween(0.1,b,{dy=-2},"out-cubic",function()

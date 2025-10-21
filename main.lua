@@ -16,7 +16,7 @@ function love.load()
     }
     gs=require "lib.hump.gamestate"
     gs.registerEvents()
-    gs.switch(state.lvl)
+    gs.switch(state.title)
 end
 
 function love.update(dt)

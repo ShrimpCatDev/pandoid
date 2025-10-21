@@ -48,9 +48,12 @@ function paddle:draw()
 end
 
 function paddle:bounce()
-    paddle.sound:stop()
-    paddle.sound:play()
+    
     if not self.bouncing then
+        local normalized = (2 * (paddle.x - 0) / (160 - 0)) - 1
+        paddle.sound:setPosition(normalized,0,0)
+        paddle.sound:stop()
+        paddle.sound:play()
         self.bouncing=true
         timer.tween(0.1,self,{oy=2},"out-quad")
         timer.after(0.1,function()
