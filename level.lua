@@ -11,7 +11,7 @@ lvl.bgm:setVolume(150)
 
 shove.createLayer("game")
 
-local maxLevels=2
+local maxLevels=10
 
 for i=1,maxLevels do
     table.insert(lvl.levels,require("levels/lvl"..i))

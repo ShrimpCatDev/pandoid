@@ -14,7 +14,7 @@ function ball.filter(self,obj)
 end
 
 function ball:init(x,y)
-    ball.lives=0
+    ball.lives=8
 
     self.move=true
 
